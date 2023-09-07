@@ -13,7 +13,7 @@ pub fn main() {
 
     let (dim, row, col) = jump_walk::solve(&matrix, timer);
 
-    println!("s {} {} {}\n", row, col, dim);
+    println!("{} {} {}\n", dim, row, col);
 }
 
 #[cfg(test)]
