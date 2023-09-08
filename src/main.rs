@@ -1,17 +1,14 @@
 use io::{get_input_string, string_to_binmatrix};
 pub mod jump_walk;
 pub mod io;
-use std::time::Instant;
 
 // matrix index is: (i,j) i~row, j~column 
 pub fn main() {
-    let timer = Instant::now();
-
     let input = get_input_string();
 
     let matrix = string_to_binmatrix(input);
 
-    let (dim, row, col) = jump_walk::solve(&matrix, timer);
+    let (dim, row, col) = jump_walk::solve(&matrix);
 
     println!("{} {} {}\n", dim, row, col);
 }
