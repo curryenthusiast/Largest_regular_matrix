@@ -11,15 +11,7 @@ fn get_square_submatrix(matrix: &BinMatrix, dimension: usize, row: usize, column
 }
 
 pub fn solve(matrix: &BinMatrix) -> (usize,usize,usize) {
-    let instance_size = matrix.ncols();
-
-    // Parallel loop over all dimensions from 1 to the rank of the matrix (including the rank)
-    if let Some(i) = (1..(matrix.rank() + 1)).into_par_iter().find_last(|&dimension| solve_dim(matrix, dimension, instance_size).is_some()) {
-        // NOTE: this call is a duplicate; but i don't know of a sane way to get the down and left shift from the inner loops
-        // This causes overhead of around 200-800ms according to my testings against our solver with instance sizes arounf 300-400
-        return solve_dim(matrix, i, instance_size).unwrap();
-    }
-    (0,0,0)
+    (1..(matrix.rank() + 1)).into_par_iter().find_map_last(|dimension| solve_dim(matrix, dimension, matrix.ncols())).unwrap()
 }
 
 fn solve_dim(matrix: &BinMatrix, dimension: usize, instance_size: usize) -> Option<(usize,usize,usize)> {
